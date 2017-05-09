@@ -3,11 +3,13 @@ package si3.ihm.polytech.capsophia;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+
 
 
 /**
@@ -43,10 +45,6 @@ public class AgendaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("--- salut");
-        LocalCalendar lc = new LocalCalendar(getActivity());
-        CalendarContentResolver ccr = new CalendarContentResolver(getContext());
-        System.out.println(ccr.getCalendars());
-        CalendarView cv = (CalendarView) getView().findViewById(R.id.calendarView);
     }
 
     @Override
@@ -54,6 +52,18 @@ public class AgendaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_agenda, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        LocalCalendar lc = new LocalCalendar(getActivity());
+        CalendarContentResolver ccr = new CalendarContentResolver(getContext());
+        System.out.println(ccr.getCalendars());
+        //CalendarView cv = (CalendarView) getView().findViewById(R.id.calendarView);
+
+        // TODO: Change text size with a style: https://github.com/prolificinteractive/material-calendarview/issues/85
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
