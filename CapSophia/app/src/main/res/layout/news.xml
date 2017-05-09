@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="45dp">
+
+    <ImageView
+        android:id="@+id/news_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxHeight="450dp"
+        app:srcCompat="@drawable/soldes" />
+
+    <TextView
+        android:id="@+id/news_title"
+        style="@style/title2"
+        android:layout_width="match_parent"/>
+
+    <TextView
+        android:id="@+id/news_subtitle"
+        style="@style/subtitle2"
+        android:layout_width="match_parent"/>
+</LinearLayout>

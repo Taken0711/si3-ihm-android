@@ -1,0 +1,9 @@
+.idea/
+CapSophia/*.iml
+CapSophia/.gradle
+CapSophia/local.properties
+CapSophia/.idea/
+CapSophia/.DS_Store
+CapSophia/build
+CapSophia/captures
+CapSophia/.externalNativeBuild
