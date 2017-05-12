@@ -15,6 +15,10 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="TextAppearance.CustomCalendar" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="sectioncontainer">
         <item name="android:paddingBottom">25dp</item>
         <item name="android:paddingLeft">16dp</item>

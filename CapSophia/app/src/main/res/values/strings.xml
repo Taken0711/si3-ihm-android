@@ -14,4 +14,8 @@
     <string name="sub_notif">Selectionner les evenements pour lesquels vous souhaitez être notifié</string>
     <string name="agenda">Agenda</string>
     <string name="sub_agenda">Retrouver les évenements de votre centre Cap Sophia</string>
+    <string name="selectedDate">Selectionner une date</string>
+    <string name="event_none">Pas d\'évenement à cette date</string>
+    <string name="add_event">L\'événement a été ajouté à l\'agenda</string>
+    <string name="del_event">L\'événement a été supprimé de l\'agenda</string>
 </resources>

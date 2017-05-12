@@ -3,13 +3,30 @@ package si3.ihm.polytech.capsophia;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -20,9 +37,11 @@ import android.widget.CalendarView;
  * Use the {@link AgendaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AgendaFragment extends Fragment {
+public class AgendaFragment extends Fragment implements OnDateSelectedListener {
 
     private OnAgendaFragmentInteractionListener mListener;
+    private List<EventModel> events;
+    private LocalCalendar lc;
 
     public AgendaFragment() {
         // Required empty public constructor
@@ -44,7 +63,6 @@ public class AgendaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("--- salut");
     }
 
     @Override
@@ -57,13 +75,34 @@ public class AgendaFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LocalCalendar lc = new LocalCalendar(getActivity());
+        lc = new LocalCalendar(getActivity());
+
+        lc.clearEvents();
+
         CalendarContentResolver ccr = new CalendarContentResolver(getContext());
         System.out.println(ccr.getCalendars());
         //CalendarView cv = (CalendarView) getView().findViewById(R.id.calendarView);
 
-        // TODO: Change text size with a style: https://github.com/prolificinteractive/material-calendarview/issues/85
+        lc.addEvent();
+        events = lc.readEvents();
 
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+
+        start.set(2017, 4, 19, 6, 0);
+        end.set(2017, 4, 19, 7, 0);
+        events.add(new EventModel("Livraison", start, end, "Livraison matériel", false));
+
+        MaterialCalendarView cv = (MaterialCalendarView) getView().findViewById(R.id.calendarView);
+        //cv.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
+
+        List<CalendarDay> tmp = new ArrayList<>();
+
+        for (EventModel event: events)
+            tmp.add(CalendarDay.from(event.getStartDate()));
+
+        cv.addDecorator(new EventDecorator(tmp));
+        cv.setOnDateChangedListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -88,6 +127,39 @@ public class AgendaFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+        TextView tv = (TextView) getView().findViewById(R.id.selectedDate);
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "dd/MM/yyyy", Locale.FRANCE);
+        tv.setText(formatter.format(date.getCalendar().getTime()));
+
+        Calendar ref = date.getCalendar();
+
+        List<EventModel> eventThisDay = new LinkedList<>();
+
+        for(EventModel event: events) {
+            if (ref.get(Calendar.YEAR) == event.getStartDate().get(Calendar.YEAR) &&
+                    ref.get(Calendar.DAY_OF_YEAR) == event.getStartDate().get(Calendar.DAY_OF_YEAR))
+                eventThisDay.add(event);
+        }
+
+        LinearLayout eventList = (LinearLayout) getView().findViewById(R.id.eventList);
+
+        eventList.removeAllViews();
+        if (eventThisDay.isEmpty()) {
+            TextView noEvent = new TextView(new ContextThemeWrapper(getContext(), R.style.subtitle2));
+            noEvent.setText(R.string.event_none);
+            noEvent.setGravity(Gravity.CENTER_HORIZONTAL);
+            eventList.addView(noEvent);
+        } else {
+            EventAdapter adapter = new EventAdapter(getContext(), eventThisDay, lc);
+            for(int i = 0 ; i < adapter.getCount(); i++)
+                eventList.addView(adapter.getView(i, null, eventList));
+        }
+
     }
 
     /**

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="si3.ihm.polytech.capsophia.AgendaFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    style="@style/sectioncontainer">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,16 +17,50 @@
         style="@style/subtitle1"
         android:text="@string/sub_agenda" />
 
-    <!--<CalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
-
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:mcv_selectionColor="@color/colorAccent"
-        app:mcv_showOtherDates="all" />
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            app:mcv_dateTextAppearance="@style/TextAppearance.CustomCalendar"
+            app:mcv_headerTextAppearance="@style/TextAppearance.CustomCalendar"
+            app:mcv_selectionColor="@color/colorAccent"
+            app:mcv_showOtherDates="all"
+            app:mcv_weekDayTextAppearance="@style/TextAppearance.CustomCalendar" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selectedDate"
+                style="@style/title2"
+                android:layout_width="match_parent"
+                android:text="@string/selectedDate"
+                android:layout_marginBottom="10dp"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/eventList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
