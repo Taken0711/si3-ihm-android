@@ -1,11 +1,10 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,10 +16,10 @@ import android.support.v4.content.ContextCompat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
+
+import si3.ihm.polytech.capsophia.agenda.event.EventModel;
 
 import static android.provider.CalendarContract.*;
 
@@ -32,21 +31,6 @@ public class LocalCalendar {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CALENDAR = 42;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 96;
-
-    // Projection array. Creating indices for this array instead of doing
-// dynamic lookups improves performance.
-    public static final String[] EVENT_PROJECTION = new String[]{
-            Calendars._ID,                           // 0
-            Calendars.ACCOUNT_NAME,                  // 1
-            Calendars.CALENDAR_DISPLAY_NAME,         // 2
-            Calendars.OWNER_ACCOUNT                  // 3
-    };
-
-    // The indices for the projection array above.
-    private static final int PROJECTION_ID_INDEX = 0;
-    private static final int PROJECTION_ACCOUNT_NAME_INDEX = 1;
-    private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
-    private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
 
     private static final String MY_ACCOUNT_NAME = "TestIHM";
     private final Activity act;
@@ -126,36 +110,6 @@ public class LocalCalendar {
     }
 
     public void addEvent() {
-        /*if (ContextCompat.checkSelfPermission(act, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(act, new String[]{android.Manifest.permission.WRITE_CALENDAR},
-                    MY_PERMISSIONS_REQUEST_WRITE_CALENDAR);
-        }
-        long calID = getCalendarId();
-        if (calID == -1) {
-            // no calendar account; react meaningfully
-            return;
-        }
-        long startMillis = 0;
-        long endMillis = 0;
-        Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2017, 4, 14, 7, 30);
-        startMillis = beginTime.getTimeInMillis();
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(2017, 4, 14, 8, 45);
-        endMillis = endTime.getTimeInMillis();
-        ContentResolver cr = act.getContentResolver();
-        ContentValues values = new ContentValues();
-        values.put(Events.DTSTART, startMillis);
-        values.put(Events.DTEND, endMillis);
-        values.put(Events.TITLE, "Jazzercise");
-        values.put(Events.DESCRIPTION, "Group workout");
-        values.put(Events.CALENDAR_ID, calID);
-        values.put(Events.EVENT_TIMEZONE, "America/Los_Angeles");
-        Uri uri = cr.insert(Events.CONTENT_URI, values);
-
-// get the event ID that is the last element in the Uri
-        long eventID = Long.parseLong(uri.getLastPathSegment());*/
         Calendar beginTime = Calendar.getInstance();
         beginTime.set(2017, 4, 14, 7, 30);
         Calendar endTime = Calendar.getInstance();
@@ -172,7 +126,6 @@ public class LocalCalendar {
         }
         long calID = getCalendarId();
         if (calID == -1) {
-            // no calendar account; react meaningfully
             return;
         }
         long startMillis = event.getStartDate().getTimeInMillis();
@@ -187,18 +140,13 @@ public class LocalCalendar {
         values.put(Events.EVENT_TIMEZONE, "Europe/Paris");
         Uri uri = cr.insert(Events.CONTENT_URI, values);
 
-// get the event ID that is the last element in the Uri
         long eventID = Long.parseLong(uri.getLastPathSegment());
         event.setId(eventID);
     }
 
     public void delEvent(EventModel event) {
         Uri eventUri;
-        if (Build.VERSION.SDK_INT >= 8) {
-            eventUri = Uri.parse("content://com.android.calendar/events");
-        } else {
-            eventUri = Uri.parse("content://calendar/events");
-        }
+        eventUri = Uri.parse("content://com.android.calendar/events");
 
         if (ContextCompat.checkSelfPermission(act, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
 
@@ -221,15 +169,10 @@ public class LocalCalendar {
         List<EventModel> res = new ArrayList<>();
 
         Uri l_eventUri;
-        if (Build.VERSION.SDK_INT >= 8) {
-            l_eventUri = Uri.parse("content://com.android.calendar/events");
-        } else {
-            l_eventUri = Uri.parse("content://calendar/events");
-        }
+        l_eventUri = Uri.parse("content://com.android.calendar/events");
         String[] l_projection = new String[]{"title", "dtstart", "dtend", "description"};
         Cursor l_managedCursor = act.getContentResolver().query(l_eventUri, l_projection, "calendar_id=" + getCalendarId(), null, "dtstart DESC, dtend DESC");
         if (l_managedCursor.moveToFirst()) {
-            int l_cnt = 0;
             String l_title;
             Calendar l_begin;
             Calendar l_end;
@@ -251,21 +194,15 @@ public class LocalCalendar {
         return res;
     }
 
-    public static Calendar getDate(long milliSeconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat(
-                "dd/MM/yyyy hh:mm:ss a", Locale.FRANCE);
+    private static Calendar getDate(long milliSeconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return calendar;
     }
 
-    public void clearEvents() {
+    void clearEvents() {
         Uri eventUri;
-        if (Build.VERSION.SDK_INT >= 8) {
-            eventUri = Uri.parse("content://com.android.calendar/events");
-        } else {
-            eventUri = Uri.parse("content://calendar/events");
-        }
+        eventUri = Uri.parse("content://com.android.calendar/events");
 
         Cursor cursor = act.getContentResolver().query(eventUri, new String[]{"_id"}, "calendar_id = " + getCalendarId(), null, null); // calendar_id can change in new versions
 

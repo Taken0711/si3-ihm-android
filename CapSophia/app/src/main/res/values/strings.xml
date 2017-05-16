@@ -7,7 +7,6 @@
     <string name="highlight">A la une</string>
     <string name="sub_highlight">Retrouver l\'activité de votre centre commercial</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="still_ongoing">Toujours en cours</string>
     <string name="notif">Notification</string>
@@ -18,4 +17,8 @@
     <string name="event_none">Pas d\'évenement à cette date</string>
     <string name="add_event">L\'événement a été ajouté à l\'agenda</string>
     <string name="del_event">L\'événement a été supprimé de l\'agenda</string>
+    <string name="notif_event_title">Evenement CapSophia</string>
+    <string name="notif_event_desc">Evenements</string>
+    <string name="notif_flash_desc">Offres flash</string>
+    <string name="notif_flash_title">Offre flash</string>
 </resources>

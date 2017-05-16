@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="si3.ihm.polytech.capsophia.NotificationFragment">
+    tools:context="si3.ihm.polytech.capsophia.notification.NotificationFragment">
 
     <LinearLayout
         style="@style/sectioncontainer"
@@ -22,18 +22,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Switch"
-                android:textAlignment="textStart"
-                android:textSize="24sp" />
+            android:orientation="vertical"
+            android:id="@+id/notif_type_list"
+            android:paddingBottom="30dp">
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/notify_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:elevation="0dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="5dp"
+            android:text="Notifier"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

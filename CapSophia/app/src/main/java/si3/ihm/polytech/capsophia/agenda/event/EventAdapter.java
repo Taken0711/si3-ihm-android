@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda.event;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import si3.ihm.polytech.capsophia.R;
+import si3.ihm.polytech.capsophia.agenda.LocalCalendar;
 
 /**
  * Created by user on 08/05/2017.

@@ -1,12 +1,19 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.notification;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import si3.ihm.polytech.capsophia.R;
+
+import static si3.ihm.polytech.capsophia.notification.NotificationType.*;
 
 
 /**
@@ -50,7 +57,28 @@ public class NotificationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_notification, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Button notify = (Button) getView().findViewById(R.id.notify_button);
+
+        // TODO: Notif icon is not appropriate
+
+        LinearLayout notifTypeList = (LinearLayout) getView().findViewById(R.id.notif_type_list);
+
+        NotifAdapter adapter = new NotifAdapter(getContext(), NotificationType.values());
+        for(int i = 0 ; i < adapter.getCount(); i++)
+            notifTypeList.addView(adapter.getView(i, null, notifTypeList));
+
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotificationManager.notify(getContext(), EVENT, "Distribution de goodies dans la boutique Fnac");
+                NotificationManager.notify(getContext(), FLASH, "-10% sur le rayon chaussure dans la boutique H&M jusqu'à 17h");
+            }
+        });
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onNotifFragmentInteraction(uri);
@@ -85,7 +113,6 @@ public class NotificationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnNotifFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onNotifFragmentInteraction(Uri uri);
     }
 }

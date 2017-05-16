@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.home;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import si3.ihm.polytech.capsophia.R;
 
 /**
  * Created by user on 08/05/2017.

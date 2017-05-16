@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda;
 
 import android.content.ContentResolver;
 import android.content.Context;

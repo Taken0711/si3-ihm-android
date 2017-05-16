@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda.event;
 
 import java.util.Calendar;
 
@@ -6,7 +6,7 @@ import java.util.Calendar;
  * Created by user on 09/05/2017.
  */
 
-class EventModel {
+public class EventModel {
 
     private String name;
     private Calendar startDate;

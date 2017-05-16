@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda.event;
 
 import android.graphics.Color;
 import android.text.style.BackgroundColorSpan;
@@ -10,6 +10,8 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Collection;
 import java.util.HashSet;
+
+import si3.ihm.polytech.capsophia.R;
 
 /**
  * Created by user on 10/05/2017.

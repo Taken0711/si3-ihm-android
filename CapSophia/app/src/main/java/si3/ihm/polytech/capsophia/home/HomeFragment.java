@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.home;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import java.util.Arrays;
 import java.util.List;
+
+import si3.ihm.polytech.capsophia.R;
 
 
 /**
@@ -36,7 +38,6 @@ public class HomeFragment extends Fragment {
      *
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -85,7 +86,6 @@ public class HomeFragment extends Fragment {
             highlightList.addView(adapter.getView(i, null, highlightList));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onHomeFragmentInteraction(uri);
@@ -120,7 +120,6 @@ public class HomeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 public interface OnHomeFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onHomeFragmentInteraction(Uri uri);
     }
 }

@@ -1,6 +1,5 @@
 package si3.ihm.polytech.capsophia;
 
-import android.app.Notification;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import si3.ihm.polytech.capsophia.agenda.AgendaFragment;
+import si3.ihm.polytech.capsophia.home.HomeFragment;
+import si3.ihm.polytech.capsophia.notification.NotificationFragment;
 
 public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHomeFragmentInteractionListener,
         NotificationFragment.OnNotifFragmentInteractionListener, AgendaFragment.OnAgendaFragmentInteractionListener {

@@ -1,4 +1,4 @@
-package si3.ihm.polytech.capsophia;
+package si3.ihm.polytech.capsophia.agenda;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,13 +11,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
@@ -27,6 +24,11 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+
+import si3.ihm.polytech.capsophia.R;
+import si3.ihm.polytech.capsophia.agenda.event.EventAdapter;
+import si3.ihm.polytech.capsophia.agenda.event.EventDecorator;
+import si3.ihm.polytech.capsophia.agenda.event.EventModel;
 
 
 /**
@@ -79,10 +81,6 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
 
         lc.clearEvents();
 
-        CalendarContentResolver ccr = new CalendarContentResolver(getContext());
-        System.out.println(ccr.getCalendars());
-        //CalendarView cv = (CalendarView) getView().findViewById(R.id.calendarView);
-
         lc.addEvent();
         events = lc.readEvents();
 
@@ -91,10 +89,9 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
 
         start.set(2017, 4, 19, 6, 0);
         end.set(2017, 4, 19, 7, 0);
-        events.add(new EventModel("Livraison", start, end, "Livraison matériel", false));
+        events.add(new EventModel("Livraison", start, end, "Livraison de matériel", false));
 
         MaterialCalendarView cv = (MaterialCalendarView) getView().findViewById(R.id.calendarView);
-        //cv.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
 
         List<CalendarDay> tmp = new ArrayList<>();
 
@@ -105,7 +102,6 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
         cv.setOnDateChangedListener(this);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onAgendaFragmentInteraction(uri);
@@ -173,7 +169,6 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnAgendaFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onAgendaFragmentInteraction(Uri uri);
     }
 }
