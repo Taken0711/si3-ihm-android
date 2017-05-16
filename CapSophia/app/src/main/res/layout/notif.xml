@@ -6,5 +6,5 @@
     android:layout_weight="1"
     android:text="Switch"
     android:textAlignment="textStart"
-    android:textAppearance="@style/subtitle2"
+    android:textAppearance="@style/subtitle1"
     android:paddingBottom="10dp"/>

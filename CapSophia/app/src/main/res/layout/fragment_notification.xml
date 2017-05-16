@@ -13,10 +13,6 @@
 
         <TextView
             style="@style/title1"
-            android:text="@string/notif" />
-
-        <TextView
-            style="@style/subtitle1"
             android:text="@string/sub_notif" />
 
         <LinearLayout
