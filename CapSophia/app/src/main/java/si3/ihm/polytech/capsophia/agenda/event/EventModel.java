@@ -12,15 +12,21 @@ public class EventModel {
     private Calendar startDate;
     private Calendar endDate;
     private String description;
-    private boolean onLocal;
+    private final boolean onLocal;
+    private boolean synchro;
     private long id;
 
     public EventModel(String name, Calendar startDate, Calendar endDate, String description, boolean onLocal) {
+        this(name, startDate, endDate, description, onLocal, onLocal);
+    }
+
+    public EventModel(String name, Calendar startDate, Calendar endDate, String description, boolean onLocal, boolean synchro) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.description = description;
         this.onLocal = onLocal;
+        this.synchro = synchro;
     }
 
     public String getName() {
@@ -43,8 +49,12 @@ public class EventModel {
         return onLocal;
     }
 
-    public void setOnLocal(boolean onLocal) {
-        this.onLocal = onLocal;
+    public boolean isSynchro() {
+        return synchro;
+    }
+
+    public void setSynchro(boolean synchro) {
+        this.synchro = synchro;
     }
 
     public long getId() {

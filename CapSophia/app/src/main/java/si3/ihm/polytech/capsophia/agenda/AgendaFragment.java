@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +46,10 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
     private OnAgendaFragmentInteractionListener mListener;
     private List<EventModel> events;
     private LocalCalendar lc;
+
+    private boolean displayLocalEvents = false;
+    private MaterialCalendarView materialCalendarView;
+    private EventDecorator eventDecorator;
 
     public AgendaFragment() {
         // Required empty public constructor
@@ -91,15 +97,34 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
         end.set(2017, 4, 19, 7, 0);
         events.add(new EventModel("Livraison", start, end, "Livraison de matériel", false));
 
-        MaterialCalendarView cv = (MaterialCalendarView) getView().findViewById(R.id.calendarView);
+        materialCalendarView = (MaterialCalendarView) getView().findViewById(R.id.calendarView);
 
         List<CalendarDay> tmp = new ArrayList<>();
 
         for (EventModel event: events)
             tmp.add(CalendarDay.from(event.getStartDate()));
 
-        cv.addDecorator(new EventDecorator(tmp));
-        cv.setOnDateChangedListener(this);
+
+        eventDecorator = new EventDecorator(tmp, events);
+        materialCalendarView.addDecorator(eventDecorator);
+        materialCalendarView.setOnDateChangedListener(this);
+
+        CheckBox cb = (CheckBox) getView().findViewById(R.id.localEvents);
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                displayLocalEvents = isChecked;
+                eventDecorator.setDisplayLocal(isChecked);
+                materialCalendarView.invalidateDecorators();
+                materialCalendarView.addDecorator(eventDecorator);
+                materialCalendarView.
+                if(materialCalendarView.getSelectedDate() != null)
+                    onDateSelected(materialCalendarView, materialCalendarView.getSelectedDate(), true);
+            }
+        });
+
+        cb.setChecked(displayLocalEvents);
+        eventDecorator.setDisplayLocal(displayLocalEvents);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -138,8 +163,12 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
 
         for(EventModel event: events) {
             if (ref.get(Calendar.YEAR) == event.getStartDate().get(Calendar.YEAR) &&
-                    ref.get(Calendar.DAY_OF_YEAR) == event.getStartDate().get(Calendar.DAY_OF_YEAR))
-                eventThisDay.add(event);
+                    ref.get(Calendar.DAY_OF_YEAR) == event.getStartDate().get(Calendar.DAY_OF_YEAR)) {
+                if (displayLocalEvents)
+                    eventThisDay.add(event);
+                else if(!event.isOnLocal())
+                    eventThisDay.add(event);
+            }
         }
 
         LinearLayout eventList = (LinearLayout) getView().findViewById(R.id.eventList);

@@ -1,15 +1,11 @@
 package si3.ihm.polytech.capsophia.agenda.event;
 
-import android.graphics.Color;
-import android.text.style.BackgroundColorSpan;
-
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 
 import si3.ihm.polytech.capsophia.R;
 
@@ -19,15 +15,24 @@ import si3.ihm.polytech.capsophia.R;
 
 public class EventDecorator implements DayViewDecorator {
 
-    private final HashSet<CalendarDay> dates;
+    private final List<CalendarDay> dates;
+    private List<EventModel> events;
+    private boolean displayLocal;
 
-    public EventDecorator(Collection<CalendarDay> dates) {
-        this.dates = new HashSet<>(dates);
+    public EventDecorator(List<CalendarDay> dates, List<EventModel> events) {
+        this.dates = dates;
+        this.events = events;
+    }
+
+    public void setDisplayLocal(boolean displayLocal) {
+        this.displayLocal = displayLocal;
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        return dates.contains(day);
+        if (displayLocal)
+            return dates.contains(day);
+        return dates.contains(day) && !events.get(dates.indexOf(day)).isOnLocal();
     }
 
     @Override

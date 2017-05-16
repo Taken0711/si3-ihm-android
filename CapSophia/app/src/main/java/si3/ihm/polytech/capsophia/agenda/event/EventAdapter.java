@@ -54,14 +54,14 @@ public class EventAdapter extends ArrayAdapter<EventModel> {
         TextView desc = (TextView) v.findViewById(R.id.event_desc);
         desc.setText(p.getDescription());
         CheckBox synchro = (CheckBox) v.findViewById(R.id.event_synchro);
-        synchro.setChecked(p.isOnLocal());
+        synchro.setChecked(p.isSynchro());
         if (p.isOnLocal())
             synchro.setEnabled(false);
 
         synchro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                p.setOnLocal(isChecked);
+                p.setSynchro(isChecked);
                 if (isChecked) {
                     localCalendar.addEvent(p);
                     Toast.makeText(buttonView.getContext(), R.string.add_event,
