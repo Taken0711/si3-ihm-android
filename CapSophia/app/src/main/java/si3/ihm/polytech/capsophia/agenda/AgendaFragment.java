@@ -117,7 +117,7 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 displayLocalEvents = isChecked;
                 eventDecorator.setDisplayLocal(isChecked);
-                materialCalendarView.invalidateDecorators();
+                materialCalendarView.removeDecorators();
                 materialCalendarView.addDecorator(eventDecorator);
                 if(materialCalendarView.getSelectedDate() != null)
                     onDateSelected(materialCalendarView, materialCalendarView.getSelectedDate(), true);
