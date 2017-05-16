@@ -114,8 +114,12 @@ public class LocalCalendar {
         beginTime.set(2017, 4, 14, 7, 30);
         Calendar endTime = Calendar.getInstance();
         endTime.set(2017, 4, 14, 8, 45);
-        EventModel event = new EventModel("Jazzercise", beginTime, endTime, "Group working", true);
-        addEvent(event);
+        addEvent(new EventModel("Jazzercise", beginTime, endTime, "Group working", true));
+        beginTime = Calendar.getInstance();
+        beginTime.set(2017, 4, 19, 14, 30);
+        endTime = Calendar.getInstance();
+        endTime.set(2017, 4, 19, 15, 20);
+        addEvent(new EventModel("Jazzercise", beginTime, endTime, "Group working", true));
     }
 
     public void addEvent(EventModel event) {

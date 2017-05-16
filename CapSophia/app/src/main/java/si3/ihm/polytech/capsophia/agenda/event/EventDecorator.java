@@ -5,6 +5,7 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.util.Calendar;
 import java.util.List;
 
 import si3.ihm.polytech.capsophia.R;
@@ -32,7 +33,15 @@ public class EventDecorator implements DayViewDecorator {
     public boolean shouldDecorate(CalendarDay day) {
         if (displayLocal)
             return dates.contains(day);
-        return dates.contains(day) && !events.get(dates.indexOf(day)).isOnLocal();
+        Calendar ref = day.getCalendar();
+        for (EventModel event: events) {
+            if (ref.get(Calendar.YEAR) == event.getStartDate().get(Calendar.YEAR) &&
+                    ref.get(Calendar.DAY_OF_YEAR) == event.getStartDate().get(Calendar.DAY_OF_YEAR)) {
+                if (!event.isOnLocal())
+                    return true;
+            }
+        }
+        return false;
     }
 
     @Override

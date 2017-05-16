@@ -19,7 +19,7 @@
         android:id="@+id/localEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckBox"
+        android:text="@string/should_display_local_event"
         android:textAppearance="@style/subtitle1"
         android:layout_gravity="center"/>
 

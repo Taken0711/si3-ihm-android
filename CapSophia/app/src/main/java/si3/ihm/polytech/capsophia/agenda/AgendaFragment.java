@@ -23,6 +23,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -117,7 +119,6 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
                 eventDecorator.setDisplayLocal(isChecked);
                 materialCalendarView.invalidateDecorators();
                 materialCalendarView.addDecorator(eventDecorator);
-                materialCalendarView.
                 if(materialCalendarView.getSelectedDate() != null)
                     onDateSelected(materialCalendarView, materialCalendarView.getSelectedDate(), true);
             }
@@ -170,6 +171,13 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
                     eventThisDay.add(event);
             }
         }
+
+        Collections.sort(eventThisDay, new Comparator<EventModel>() {
+            @Override
+            public int compare(EventModel o1, EventModel o2) {
+                return Long.compare(o1.getStartDate().getTimeInMillis(), o2.getStartDate().getTimeInMillis());
+            }
+        });
 
         LinearLayout eventList = (LinearLayout) getView().findViewById(R.id.eventList);
 
