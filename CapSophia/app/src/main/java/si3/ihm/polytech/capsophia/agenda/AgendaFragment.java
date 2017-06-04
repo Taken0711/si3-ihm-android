@@ -95,8 +95,8 @@ public class AgendaFragment extends Fragment implements OnDateSelectedListener {
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
 
-        start.set(2017, 4, 19, 6, 0);
-        end.set(2017, 4, 19, 7, 0);
+        start.set(2017, 5, 9, 6, 0);
+        end.set(2017, 5, 9, 7, 0);
         events.add(new EventModel("Livraison", start, end, "Livraison de matériel", false));
 
         materialCalendarView = (MaterialCalendarView) getView().findViewById(R.id.calendarView);

@@ -116,6 +116,8 @@ public class ChartFragment extends Fragment {
         barChart.getAxisRight().setTextSize(20f);
         barChart.getLegend().setTextSize(20f);
         barChart.getLegend().setFormSize(0f);
+
+        barChart.getDescription().setText("");
     }
 
     public void onButtonPressed(Uri uri) {

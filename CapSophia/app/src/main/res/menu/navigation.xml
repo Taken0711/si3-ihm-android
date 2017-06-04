@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_event_black_24dp"
         android:title="@string/title_agenda" />
 
     <item
@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_charts"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_charts_black_24dp"
         android:title="@string/title_chart" />
 
 </menu>

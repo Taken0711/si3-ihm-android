@@ -111,15 +111,15 @@ public class LocalCalendar {
 
     public void addEvent() {
         Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2017, 4, 14, 7, 30);
+        beginTime.set(2017, 5, 9, 8, 15);
         Calendar endTime = Calendar.getInstance();
-        endTime.set(2017, 4, 14, 8, 45);
-        addEvent(new EventModel("Jazzercise", beginTime, endTime, "Group working", true));
+        endTime.set(2017, 5, 9, 9, 15);
+        addEvent(new EventModel("Réunion", beginTime, endTime, "Réunion avec les dirigeants", true));
         beginTime = Calendar.getInstance();
-        beginTime.set(2017, 4, 19, 14, 30);
+        beginTime.set(2017, 5, 19, 14, 30);
         endTime = Calendar.getInstance();
-        endTime.set(2017, 4, 19, 15, 20);
-        addEvent(new EventModel("Jazzercise", beginTime, endTime, "Group working", true));
+        endTime.set(2017, 5, 19, 15, 20);
+        addEvent(new EventModel("RDV docteur", beginTime, endTime, "", true));
     }
 
     public void addEvent(EventModel event) {
