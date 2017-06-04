@@ -22,5 +22,9 @@
     <string name="notif_flash_desc">Offres flash</string>
     <string name="notif_flash_title">Offre flash</string>
     <string name="should_display_local_event">Afficher les évenements de l\'appareil</string>
-    <string name="title_charts">Statistiques</string>
+    <string name="title_chart">Statistiques</string>
+    <string name="affluenceChartTitle">Période d\'affluence</string>
+    <string name="sub_affluenceChartTitle">Suivez le flux de personne dans votre centre CapSophia</string>
+    <string name="notif_oc_title">Ouverture/Fermeture de magasin CapSopia</string>
+    <string name="notif_oc_desc">Ouverture/Fermeture de magasin</string>
 </resources>

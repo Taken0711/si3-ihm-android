@@ -73,8 +73,9 @@ public class NotificationFragment extends Fragment {
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotificationManager.notify(getContext(), EVENT, "Distribution de goodies dans la boutique Fnac");
+                NotificationManager.notify(getContext(), EVENT, "Distribution de goodies dans la boutique Superdry");
                 NotificationManager.notify(getContext(), FLASH, "-10% sur le rayon chaussure dans la boutique H&M jusqu'à 17h");
+                NotificationManager.notify(getContext(), OPEN_CLOSE, "Ouverture de la boutique Fnac ce soir 20h");
             }
         });
     }

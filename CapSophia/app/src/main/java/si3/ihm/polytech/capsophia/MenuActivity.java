@@ -3,6 +3,7 @@ package si3.ihm.polytech.capsophia;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -17,12 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import si3.ihm.polytech.capsophia.chart.ChartFragment;
 import si3.ihm.polytech.capsophia.agenda.AgendaFragment;
 import si3.ihm.polytech.capsophia.home.HomeFragment;
 import si3.ihm.polytech.capsophia.notification.NotificationFragment;
 
 public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHomeFragmentInteractionListener,
-        NotificationFragment.OnNotifFragmentInteractionListener, AgendaFragment.OnAgendaFragmentInteractionListener {
+        NotificationFragment.OnNotifFragmentInteractionListener, AgendaFragment.OnAgendaFragmentInteractionListener,
+        ChartFragment.OnChartFragmentInteractionListener {
 
     private TextView mTextMessage;
 
@@ -32,20 +35,19 @@ public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHo
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    //mTextMessage.setText(R.string.title_home);
-                    mViewPager.setCurrentItem(0);
-                    return true;
                 case R.id.navigation_dashboard:
-                    //mTextMessage.setText(R.string.title_agenda);
                     mViewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_notifications:
-                    //mTextMessage.setText(R.string.title_notifications);
                     mViewPager.setCurrentItem(2);
                     return true;
+                case R.id.navigation_charts:
+                    mViewPager.setCurrentItem(3);
+                    return true;
+                default:
+                    mViewPager.setCurrentItem(0);
+                    return true;
             }
-            return false;
         }
 
     };
@@ -73,13 +75,16 @@ public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHo
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
         for (int i = 0; i < menuView.getChildCount(); i++) {
-            final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+            final View iconView = itemView.findViewById(android.support.design.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
             // Custom size
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
             iconView.setLayoutParams(layoutParams);
+            /*itemView.setShiftingMode(false);
+            itemView.setChecked(false);*/
         }
 
         // Make swipe change active tab in navigation
@@ -126,6 +131,10 @@ public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHo
     public void onAgendaFragmentInteraction(Uri uri) {
     }
 
+    @Override
+    public void onChartFragmentInteraction(Uri uri) {
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -137,32 +146,35 @@ public class MenuActivity extends AppCompatActivity implements HomeFragment.OnHo
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
-                case 0:
-                    return HomeFragment.newInstance();
                 case 1:
                     return AgendaFragment.newInstance();
-                default:
+                case 2:
                     return NotificationFragment.newInstance();
+                case 3:
+                    return ChartFragment.newInstance();
+                default:
+                    return HomeFragment.newInstance();
             }
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return getString(R.string.title_home);
                 case 1:
                     return getString(R.string.title_agenda);
                 case 2:
                     return getString(R.string.title_notifications);
+                case 3:
+                    return getString(R.string.title_chart);
+                default:
+                    return getString(R.string.title_home);
+
             }
-            return null;
         }
 
     }

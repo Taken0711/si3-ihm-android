@@ -8,7 +8,8 @@ import si3.ihm.polytech.capsophia.R;
 
 public enum NotificationType {
     EVENT(R.string.notif_event_title, R.string.notif_event_desc),
-    FLASH(R.string.notif_flash_title, R.string.notif_flash_desc);
+    FLASH(R.string.notif_flash_title, R.string.notif_flash_desc),
+    OPEN_CLOSE(R.string.notif_oc_title, R.string.notif_oc_desc);
 
     private int title;
     private int description;

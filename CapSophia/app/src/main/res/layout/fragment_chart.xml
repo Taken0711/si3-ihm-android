@@ -1,0 +1,28 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chart.ChartFragment"
+    style="@style/sectioncontainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/title1"
+            android:text="@string/affluenceChartTitle" />
+
+        <TextView
+            style="@style/subtitle1"
+            android:text="@string/sub_affluenceChartTitle" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/affluenceChart"/>
+
+    </LinearLayout>
+
+</ScrollView>
